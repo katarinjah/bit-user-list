@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
-import { Users } from './Users'
+import { useState } from 'react';
+import Users from './Users';
+import "./UserList.css";
 
-export const UserList = ({ users }) => {
-    const [randomUsers, setRandomUsers] = useState([]);
+export const UserList = () => {
+  const [users] = useState(Users);
 
-    useEffect(() => {
-        const getRandomUsers = () => {
-          const shuffledUsers = users.sort(() => 0.5 - Math.random());
-          const selectedUsers = shuffledUsers.slice(0, 10);
-          const formattedUsers = selectedUsers.map(user => ({
-            picture: user.picture.medium,
-            email: user.email,
-            dob: user.dob.date
-          }));
-          setRandomUsers(formattedUsers);
-        }
-        getRandomUsers();
-    }, [users]);
+  const randomUsers = users.sort(() => 0.5 - Math.random()).slice(0, 12);
 
-    return (
-        <div>
-            {randomUsers.map(user => (
-              <div key={user.email}>
-                <img src={user.picture} alt="user" />
-                <p>Email: {user.email}</p>
-                <p>Date of Birth: {user.dob}</p>
-              </div>
-            ))}
-        </div>
-    );
+  return (
+    <>
+      <div className="row user-list justify-content-center">
+        {randomUsers.map(user => (
+          <div key={user.email} className="col-sm-12 col-md-6 col-lg-4">
+            <img src={user.picture.large} alt="user" className="img-top" />
+            <p>Email: {user.email}</p>
+            <p>Date of Birth: {new Date(user.dob.date).toLocaleDateString()}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 }
