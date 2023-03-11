@@ -8,4 +8,9 @@
 .bit-link {
     text-decoration: none;
     color: white;
+    font-weight: bold;
+}
+
+.bit-link:hover {
+    color: #0096FF;
 }
